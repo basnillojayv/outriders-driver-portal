@@ -7,7 +7,7 @@
  */
 import React from "react";
 import { T } from "../v3/v3tokens";
-import { TIER_PALETTE } from "./tierPalette";
+import { TIER_PALETTE, TIER_GAUGE } from "./tierPalette";
 import CircleTierCard from "./CircleTierCard";
 
 import innerBadge from "@/assets/founders/inner-circle.png";
@@ -24,7 +24,7 @@ export const TIERS = [
     max: 10,
     source: "direct",   // generation 1 — people you signed up yourself
     accent: TIER_PALETTE.inner.base,
-    accentBright: TIER_PALETTE.inner.bright,
+    accentBright: TIER_GAUGE.inner.text,
     accentSoft: TIER_PALETTE.inner.rim,
   },
   {
@@ -35,7 +35,7 @@ export const TIERS = [
     max: 100,
     source: "tier2",    // generation 2 — their referrals
     accent: TIER_PALETTE.convoy.base,
-    accentBright: TIER_PALETTE.convoy.bright,
+    accentBright: TIER_GAUGE.convoy.text,
     accentSoft: TIER_PALETTE.convoy.rim,
   },
   {
@@ -46,7 +46,7 @@ export const TIERS = [
     max: 1000,
     source: "tier3",    // generation 3
     accent: TIER_PALETTE.founders.base,
-    accentBright: TIER_PALETTE.founders.bright,
+    accentBright: TIER_GAUGE.founders.text,
     accentSoft: TIER_PALETTE.founders.rim,
   },
 ];
