@@ -34,6 +34,24 @@ export const TIER_PALETTE = {
   },
 };
 
+/**
+ * Instrument tones for the gauge unit, sampled off the Founders asset sheet.
+ *
+ * The dial is its own near-black enclosure (#101214), so these are measured
+ * against that rather than the card. Two values are nudged off the raw artwork
+ * to clear WCAG on that ground:
+ *   convoy band  #1259CE → #1B64DA  (2.99:1, under the 3:1 graphics bar)
+ *   readout text  raw hues → the `text` values (both were under 4.5:1)
+ *
+ *   base / glow / deep — the band gradient, bottom-lit with a specular ridge
+ *   text              — the live readout and the "to go" line
+ */
+export const TIER_GAUGE = {
+  inner:    { base: "#B8BCC0", glow: "#FFFFFF", deep: "#5E646A", text: "#FFFFFF" },
+  convoy:   { base: "#1B64DA", glow: "#6FB4FF", deep: "#0A2D6B", text: "#6FB4FF" },
+  founders: { base: "#D9251B", glow: "#FF7A63", deep: "#5E100B", text: "#FF7A63" },
+};
+
 /** Gunmetal used for an unearned seat — same geometry, no tint. */
 export const TIER_OFF = {
   base:   "#23272B",
