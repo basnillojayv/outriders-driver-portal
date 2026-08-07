@@ -54,3 +54,9 @@ base44/functions/audit*/
 
 # Local tooling artefacts
 .impeccable/
+.vercel
+.env*
+
+# Re-assert after Vercel's `.env*` line, which would otherwise re-ignore this
+# committed reference file (last matching rule wins).
+!.env.local.example
