@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600;700;800;900&family=Figtree:wght@400;500;600;700&family=Bitter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Oswald:wght@500;600;700&family=Rajdhani:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-heading: 'Russo One', sans-serif;
+    --font-body: 'Bitter', serif;
+
+    /* Carbon system */
+    --carbon-900: #1a1a1a;
+    --carbon-800: #222222;
+    --carbon-700: #2a2a2a;
+    --carbon-600: #333333;
+    --carbon-500: #3e3e3e;
+    --carbon-400: #4a4a4a;
+    --carbon-300: #5a5a5a;
+    --carbon-200: #6a6a6a;
+
+    /* Fuel Orange system */
+    --fuel-100: #f5c882;
+    --fuel-200: #efa55a;
+    --fuel-300: #e8a14b;
+    --fuel-400: #de9142;
+    --fuel-500: #cc5b30;
+    --fuel-600: #b84a28;
+    --fuel-700: #a03d20;
+
+    /* Text system */
+    --text-primary: #f0eeec;
+    --text-secondary: #b6ada2;
+    --text-muted: #7a7268;
+    --text-disabled: #5a5550;
+
+    /* Semantic */
+    --success: #18a06b;
+    --success-bg: rgba(24,160,107,0.1);
+    --warning: #e8a14b;
+    --danger: #c0392b;
+    --danger-bg: rgba(192,57,43,0.1);
+    --info: #2c5f8a;
+
+    /* OneHome palette */
+    --oh-bg: #1a0e0a;
+    --oh-card: #120804;
+    --oh-border: #3d1f14;
+    --oh-accent: #ee752c;
+    --oh-accent-light: #f59b5e;
+    --oh-green: #3db87a;
+    --oh-green-bg: #0d2a1a;
+    --oh-red: #d94040;
+    --oh-red-bg: #2a0d0d;
+
+    /* Tailwind semantic mappings → dark system */
+    --background: 0 0% 10%;           /* carbon-900 #1a1a1a */
+    --foreground: 30 8% 94%;          /* text-primary #f0eeec */
+    --card: 0 0% 13%;                 /* carbon-800 #222222 */
+    --card-foreground: 30 8% 94%;
+    --popover: 0 0% 16%;              /* carbon-700 */
+    --popover-foreground: 30 8% 94%;
+    --primary: 16 62% 49%;            /* fuel-500 #cc5b30 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 16%;            /* carbon-700 */
+    --secondary-foreground: 30 8% 94%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 25 10% 48%;   /* text-muted */
+    --accent: 33 78% 60%;             /* fuel-300 #e8a14b */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 6 63% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 24%;               /* carbon-500 */
+    --input: 0 0% 16%;
+    --ring: 16 62% 49%;
+    --radius: 0.875rem;
+
+    /* Chart */
+    --chart-1: 16 62% 49%;
+    --chart-2: 152 72% 37%;
+    --chart-3: 207 51% 36%;
+    --chart-4: 33 78% 60%;
+    --chart-5: 30 8% 94%;
+
+    /* Sidebar (same dark system) */
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 30 8% 94%;
+    --sidebar-primary: 16 62% 49%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 16%;
+    --sidebar-accent-foreground: 30 8% 94%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 16 62% 49%;
+
+    /* Legacy tokens kept for compatibility */
+    --fuel-orange: 16 62% 49%;
+    --carbon: 0 0% 10%;
+    --sunrise: 30 25% 97%;
+    --lhs-green: 152 72% 37%;
+    --steel-blue: 207 51% 36%;
+    --lhs-red: 6 63% 46%;
+    --onehome-bg: 16 60% 5%;
+    --onehome-accent: 22 85% 55%;
+  }
+
+  /* Dark mode = same, it's always dark */
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 30 8% 94%;
+    --card: 0 0% 13%;
+    --card-foreground: 30 8% 94%;
+    --popover: 0 0% 16%;
+    --popover-foreground: 30 8% 94%;
+    --primary: 16 62% 49%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 30 8% 94%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 25 10% 48%;
+    --accent: 33 78% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 6 63% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 24%;
+    --input: 0 0% 16%;
+    --ring: 16 62% 49%;
+    --chart-1: 16 62% 49%;
+    --chart-2: 152 72% 37%;
+    --chart-3: 207 51% 36%;
+    --chart-4: 33 78% 60%;
+    --chart-5: 30 8% 94%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 30 8% 94%;
+    --sidebar-primary: 16 62% 49%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 16%;
+    --sidebar-accent-foreground: 30 8% 94%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 16 62% 49%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  html {
+    @apply bg-background;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    font-size: 16px;
+    line-height: 1.65;
+    background-color: var(--carbon-900);
+    /* Carbon fiber CSS texture */
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.015) 0px,
+        rgba(255,255,255,0.015) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer components {
+  /* ── CARDS ── */
+  .card-premium {
+    background: var(--carbon-800);
+    border: 1px solid var(--carbon-500);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow:
+      0 2px 8px rgba(0,0,0,0.3),
+      inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 900;
+    color: #fff;
+    background: linear-gradient(135deg, #e8a14b, #cc5b30);
+    border: none;
+    border-radius: 12px;
+    padding: 16px 24px;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(204,91,48,0.35);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    letter-spacing: 0.3px;
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #efa55a, #b84a28);
+    box-shadow: 0 6px 28px rgba(204,91,48,0.55), 0 2px 6px rgba(0,0,0,0.4);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    transform: scale(0.97);
+  }
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-secondary {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--fuel-500);
+    background: transparent;
+    border: 2px solid var(--fuel-500);
+    border-radius: 12px;
+    padding: 14px 20px;
+    width: 100%;
+    cursor: pointer;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+  .btn-secondary:hover {
+    background: rgba(204,91,48,0.1);
+  }
+
+  .btn-ghost {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--carbon-500);
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  /* ── CHROME EFFECTS ── */
+  .chrome-border {
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.05),
+      0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .chrome-divider {
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent,
+      rgba(255,255,255,0.12) 20%,
+      rgba(255,255,255,0.12) 80%,
+      transparent
+    );
+    border: none;
+  }
+
+  @keyframes chrome-sweep {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .chrome-shine {
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255,255,255,0.06) 45%,
+      rgba(255,255,255,0.12) 50%,
+      rgba(255,255,255,0.06) 55%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: chrome-sweep 3s ease-in-out infinite;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--carbon-700);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #e8a14b, #cc5b30);
+    border-radius: 4px;
+    animation: progress-pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes progress-pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ── NEON RING PULSE (NASA-console style) ── */
+  @keyframes neon-ring-pulse {
+    0%   { transform: scale(0.82); opacity: 0.85; box-shadow: 0 0 6px var(--neon-glow, rgba(255,106,0,0.75)), 0 0 14px var(--neon-glow-soft, rgba(255,106,0,0.45)); }
+    60%  { transform: scale(1.18); opacity: 0.30; box-shadow: 0 0 10px var(--neon-glow, rgba(255,106,0,0.50)), 0 0 24px var(--neon-glow-soft, rgba(255,106,0,0.25)); }
+    100% { transform: scale(1.40); opacity: 0;    box-shadow: 0 0 16px var(--neon-glow, rgba(255,106,0,0.30)), 0 0 36px var(--neon-glow-soft, rgba(255,106,0,0.12)); }
+  }
+  .neon-ring { position: relative; }
+  .neon-ring::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--neon-color, rgba(255,106,0,0.85));
+    animation: neon-ring-pulse 2.6s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+    animation-delay: var(--neon-delay, 0s);
+    pointer-events: none;
+  }
+
+  /* ── FORM INPUTS ── */
+  .input-label {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* ── STATUS BADGES ── */
+  .badge-lhs {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .badge-success { background: var(--success-bg); color: var(--success); border: 1px solid var(--success); }
+  .badge-warning { background: rgba(232,161,75,0.1); color: #e8a14b; border: 1px solid #de9142; }
+  .badge-danger  { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger); }
+  .badge-info    { background: rgba(44,95,138,0.1); color: #2c5f8a; border: 1px solid #2c5f8a; }
+
+  /* ── MOTION ── */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    animation: fade-up 0.3s ease;
+  }
+
+  /* ── TRUCK PROGRESS RUMBLE ── */
+  @keyframes truck-rumble {
+    0%   { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-1px) rotate(-1.5deg); }
+  }
+  .truck-rumble {
+    animation: truck-rumble 0.45s ease-in-out infinite alternate;
+  }
+
+  /* ── CARBON TEXTURE ── */
+  .carbon-texture {
+    background-color: var(--carbon-900);
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.015) 0px,
+        rgba(255,255,255,0.015) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+  }
+}
+
+/* ── SHADCN OVERRIDES — force dark on all base components ── */
+@layer components {
+  /* Input */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  textarea,
+  select {
+    background: var(--carbon-900) !important;
+    border-color: var(--carbon-500) !important;
+    color: var(--text-primary) !important;
+    font-size: 16px;
+  }
+  input:focus,
+  textarea:focus {
+    border-color: var(--fuel-500) !important;
+    box-shadow: 0 0 0 3px rgba(204,91,48,0.15) !important;
+  }
+
+  /* Range slider */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 6px;
+    background: var(--carbon-500);
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--fuel-500);
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 2px 8px rgba(204,91,48,0.4);
+    cursor: pointer;
+  }
+}
+/* ── Founders Circle tier cards ───────────────────────────────────────────
+   Phone: badge + copy on one row, count + dial beneath. From 600px there is
+   room for the mock-up's single row, with copy and count stacked in the
+   middle column and the badge and dial spanning both. */
+.tier-card__body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "badge copy"
+    "count gauge";
+  column-gap: 12px;
+  row-gap: 12px;
+  align-items: center;
+}
+
+.tier-card__badge {
+  grid-area: badge;
+  width: clamp(58px, 17vw, 76px);
+  height: auto;
+  justify-self: center;
+}
+.tier-card__copy  { grid-area: copy; min-width: 0; }
+.tier-card__count { grid-area: count; }
+.tier-card__gauge { grid-area: gauge; min-width: 0; justify-self: end; width: 100%; max-width: 210px; }
+
+@media (min-width: 600px) {
+  .tier-card__body {
+    grid-template-columns: auto minmax(0, 1fr) minmax(150px, 250px);
+    grid-template-areas:
+      "badge copy  gauge"
+      "badge count gauge";
+    column-gap: 18px;
+    row-gap: 6px;
+  }
+  .tier-card__badge { width: clamp(76px, 11vw, 96px); }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "MemberUpdate",
+  "type": "object",
+  "description": "Member portal updates published by administrators. Controls Home page content.",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Update title"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Short summary text"
+    },
+    "hero_image_url": {
+      "type": "string",
+      "description": "Hero image URL"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "program",
+        "location",
+        "event",
+        "announcement",
+        "opportunity"
+      ],
+      "description": "Update category"
+    },
+    "cta_text": {
+      "type": "string",
+      "description": "Call-to-action button text"
+    },
+    "cta_destination": {
+      "type": "string",
+      "description": "Button destination path or URL"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Pin as featured on home page"
+    },
+    "published": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is this update currently published?"
+    },
+    "publish_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When to publish (can be future-dated)"
+    },
+    "expiration_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When to archive/remove"
+    },
+    "display_order": {
+      "type": "number",
+      "default": 0,
+      "description": "Sort order on home page"
+    }
+  },
+  "required": [
+    "title",
+    "summary",
+    "category"
+  ]
+}

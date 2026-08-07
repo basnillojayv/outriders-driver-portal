@@ -1,0 +1,50 @@
+{
+  "name": "AvatarTask",
+  "type": "object",
+  "properties": {
+    "driver_id": {
+      "type": "string",
+      "description": "ID of the driver"
+    },
+    "driver_name": {
+      "type": "string",
+      "description": "Driver's full name for quick reference"
+    },
+    "username": {
+      "type": "string",
+      "description": "Driver's chosen username"
+    },
+    "photo_url": {
+      "type": "string",
+      "description": "Submitted profile photo URL"
+    },
+    "avatar_url": {
+      "type": "string",
+      "description": "Completed avatar URL"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "complete",
+        "rejected"
+      ],
+      "default": "pending",
+      "description": "Avatar creation status"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Team member assigned to create the avatar"
+    },
+    "rejection_reason": {
+      "type": "string",
+      "description": "Reason for photo rejection if applicable"
+    }
+  },
+  "required": [
+    "driver_id",
+    "driver_name",
+    "photo_url"
+  ]
+}

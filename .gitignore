@@ -1,0 +1,56 @@
+#env
+.env
+.env.*
+
+# Logs
+/logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.env
+.vite
+base44/.app.jsonc
+
+# Internal engineering notes — kept out of the public repo because they contain
+# real member identifiers used as test data (personal emails, member IDs,
+# affiliate codes). Keep them local; scrub before publishing any of it.
+src/docs/
+src/implementation/
+src/TECHNICAL_HANDOFF_MEMBER_ACTIVATION_POC.md
+
+# Committable env reference (the .env.* rule above would otherwise hide it)
+!.env.local.example
+
+# One-off GHL diagnostic scripts. Excluded from the public repo: they hardcode
+# a real member's personal addresses, affiliate code and GHL contact ids as
+# test fixtures. Production functions are unaffected and remain tracked.
+base44/functions/debug*/
+base44/functions/diagnose*/
+base44/functions/investigate*/
+base44/functions/test*/
+base44/functions/report*/
+base44/functions/dryRun*/
+base44/functions/audit*/
+
+# Local tooling artefacts
+.impeccable/

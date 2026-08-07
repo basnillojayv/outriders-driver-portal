@@ -1,0 +1,84 @@
+{
+  "name": "AuditLog",
+  "type": "object",
+  "description": "Authoritative audit trail for all system events. Human-readable message + structured metadata_json for technical detail.",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "member.created",
+        "member.activated",
+        "member.invited",
+        "member.login",
+        "member.role_changed",
+        "affiliate.sync_started",
+        "affiliate.sync_completed",
+        "affiliate.sync_failed",
+        "affiliate.parent_repaired",
+        "affiliate.parent_missing",
+        "affiliate.tier_recalculated",
+        "referral.assigned",
+        "referral.duplicate_attempt",
+        "ghl.webhook_received",
+        "ghl.webhook_rejected",
+        "ghl.writeback_success",
+        "ghl.writeback_failed",
+        "ghl.auth_failed"
+      ],
+      "description": "Structured event type slug"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "member",
+        "affiliate",
+        "ghl",
+        "auth",
+        "admin",
+        "referral"
+      ],
+      "description": "Top-level category for filtering"
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable one-line summary, e.g. 'Member LHS-00007 activated via GHL webhook'"
+    },
+    "actor": {
+      "type": "string",
+      "description": "Who triggered this event: 'system', 'admin', 'webhook', or an admin email"
+    },
+    "member_id": {
+      "type": "string",
+      "description": "Base44 Member entity ID (if event relates to a member)"
+    },
+    "lhs_member_id": {
+      "type": "string",
+      "description": "Human-readable LHS-XXXXX for quick scanning without joins"
+    },
+    "email": {
+      "type": "string",
+      "description": "Contact email for quick scanning"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "failure",
+        "warning",
+        "info"
+      ],
+      "default": "info"
+    },
+    "metadata_json": {
+      "type": "string",
+      "description": "JSON string with technical detail: GHL contact ID, payload excerpts, error messages, diff fields, etc."
+    }
+  },
+  "required": [
+    "event_type",
+    "category",
+    "message",
+    "actor",
+    "status"
+  ]
+}

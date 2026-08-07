@@ -1,0 +1,64 @@
+{
+  "name": "OneHomePublicWaitlist",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "type": "string",
+      "description": "First name"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Last name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "location": {
+      "type": "string",
+      "description": "Home base / city / region"
+    },
+    "company": {
+      "type": "string",
+      "description": "Company name (optional)"
+    },
+    "driver_type": {
+      "type": "string",
+      "description": "Driver type (owner_operator, company_driver, private_fleet, other)"
+    },
+    "interest_level": {
+      "type": "string",
+      "enum": [
+        "learning",
+        "space_available",
+        "proprietary",
+        "ownership"
+      ],
+      "description": "Interest level in OneHome"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes or comments"
+    },
+    "source": {
+      "type": "string",
+      "default": "onehome_public_landing",
+      "description": "Where the lead came from"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Tags (JSON array string)"
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name",
+    "email",
+    "phone",
+    "location"
+  ]
+}

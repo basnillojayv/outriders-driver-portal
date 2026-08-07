@@ -1,0 +1,104 @@
+{
+  "name": "MemberActivity",
+  "type": "object",
+  "description": "Timeline of meaningful member events in the Outriders Member Portal. Records member-facing activities only (not system logs or internal sync events).",
+  "properties": {
+    "member_id": {
+      "type": "string",
+      "description": "Base44 Member entity ID"
+    },
+    "lhs_member_id": {
+      "type": "string",
+      "description": "Human-readable LHS-XXXXX member ID for audit"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "member_created",
+        "membership_activated",
+        "membership_renewed",
+        "membership_updated",
+        "referral_shared",
+        "referral_started",
+        "referral_converted",
+        "top_ten_completed",
+        "credit_earned",
+        "credit_adjusted",
+        "credit_redeemed",
+        "profile_completed",
+        "member_card_downloaded",
+        "wallet_pass_added",
+        "badge_earned",
+        "milestone_reached",
+        "featured_member",
+        "announcement_read",
+        "support_request_opened"
+      ],
+      "description": "Type of meaningful member event"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "membership",
+        "referral",
+        "credits",
+        "member",
+        "community",
+        "system",
+        "support"
+      ],
+      "description": "Event category for filtering and organization"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short, member-facing title (e.g., 'You shared your referral link')"
+    },
+    "description": {
+      "type": "string",
+      "description": "Longer explanation of what happened, formatted for timeline display"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Icon name (lucide-react) to display in timeline (e.g., 'Share2', 'Trophy', 'Star')"
+    },
+    "related_entity": {
+      "type": "string",
+      "enum": [
+        "Member",
+        "Event",
+        "Badge",
+        "Referral",
+        "RewardsTransaction",
+        "Location",
+        "SupportTicket",
+        null
+      ],
+      "description": "Type of entity this activity relates to"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "ID of the related entity (e.g., referred member_id, event_id, badge_id)"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "Additional context as JSON (e.g., {\"referrer_name\": \"Jane Doe\", \"credit_amount\": 5, \"milestone_name\": \"100 Network Members\"})"
+    },
+    "created_by": {
+      "type": "string",
+      "enum": [
+        "system",
+        "admin",
+        "member"
+      ],
+      "default": "system",
+      "description": "Who/what created this activity record"
+    }
+  },
+  "required": [
+    "member_id",
+    "event_type",
+    "category",
+    "title",
+    "description"
+  ]
+}

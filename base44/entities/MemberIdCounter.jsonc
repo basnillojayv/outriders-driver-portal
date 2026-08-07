@@ -1,0 +1,20 @@
+{
+  "name": "MemberIdCounter",
+  "type": "object",
+  "description": "Per-month Member ID sequence counter. One record per YYMM period; current_seq resets to 1 at the start of each calendar month.",
+  "properties": {
+    "period": {
+      "type": "string",
+      "description": "Two-digit year + two-digit month key, e.g. '2607' for July 2026. Uniquely identifies a monthly counter."
+    },
+    "current_seq": {
+      "type": "number",
+      "description": "The last assigned 5-digit sequence number for this month. Increment before use.",
+      "default": 0
+    }
+  },
+  "required": [
+    "period",
+    "current_seq"
+  ]
+}

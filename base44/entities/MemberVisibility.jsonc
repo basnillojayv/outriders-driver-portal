@@ -1,0 +1,48 @@
+{
+  "name": "MemberVisibility",
+  "type": "object",
+  "description": "Member privacy and visibility preferences. One record per member.",
+  "properties": {
+    "member_id": {
+      "type": "string",
+      "description": "Reference to the Member this preference belongs to"
+    },
+    "is_searchable": {
+      "type": "boolean",
+      "default": true,
+      "description": "Can other members find this member in directory?"
+    },
+    "profile_visibility": {
+      "type": "string",
+      "enum": [
+        "private",
+        "members_only",
+        "public"
+      ],
+      "default": "members_only",
+      "description": "Profile visibility level: private (admin only), members_only (authenticated), public (anyone)"
+    },
+    "visible_fields": {
+      "type": "string",
+      "description": "JSON array of profile fields visible to others (e.g., ['name', 'location', 'bio', 'badges']). Empty array = hide all."
+    },
+    "allow_messages": {
+      "type": "boolean",
+      "default": true,
+      "description": "Can other members send direct messages?"
+    },
+    "show_network_size": {
+      "type": "boolean",
+      "default": true,
+      "description": "Can others see this member's direct referral count and Top Ten status?"
+    },
+    "show_affiliate_link": {
+      "type": "boolean",
+      "default": true,
+      "description": "Can others see this member's affiliate/referral link?"
+    }
+  },
+  "required": [
+    "member_id"
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "name": "OneHomeWaitlist",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "type": "string",
+      "description": "First name"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Last name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "location": {
+      "type": "string",
+      "description": "Current city/state"
+    },
+    "life_situation": {
+      "type": "string",
+      "enum": [
+        "single",
+        "married",
+        "family",
+        "empty_nester",
+        "retired",
+        "other"
+      ],
+      "description": "Life situation"
+    },
+    "interested_region": {
+      "type": "string",
+      "enum": [
+        "southeast",
+        "southwest",
+        "midwest",
+        "northeast",
+        "west_coast",
+        "mountain_west",
+        "gulf_coast",
+        "no_preference"
+      ],
+      "description": "Preferred region"
+    },
+    "ran_calculator": {
+      "type": "boolean",
+      "default": false,
+      "description": "Ran the lifestyle calculator?"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "source": {
+      "type": "string",
+      "default": "onehome_landing",
+      "description": "Lead source"
+    },
+    "is_existing_member": {
+      "type": "boolean",
+      "default": false,
+      "description": "Was already an app user?"
+    },
+    "existing_user_id": {
+      "type": "string",
+      "description": "User ID if existing member"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Tags (JSON array string)"
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name",
+    "email",
+    "phone",
+    "life_situation"
+  ]
+}

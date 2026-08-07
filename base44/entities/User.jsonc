@@ -1,0 +1,94 @@
+{
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the user in the app",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "first_name": {
+      "type": "string",
+      "description": "First name"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Last name"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "city": {
+      "type": "string",
+      "description": "City"
+    },
+    "state": {
+      "type": "string",
+      "description": "State (2-letter)"
+    },
+    "headline": {
+      "type": "string",
+      "description": "Professional headline"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Professional summary"
+    },
+    "username": {
+      "type": "string",
+      "description": "Public username / handle"
+    },
+    "cdl_number": {
+      "type": "string",
+      "description": "CDL number"
+    },
+    "cdl_state": {
+      "type": "string",
+      "description": "CDL issuing state"
+    },
+    "endorsements": {
+      "type": "string",
+      "description": "CDL endorsements"
+    },
+    "medical_card_expiry": {
+      "type": "string",
+      "format": "date",
+      "description": "Medical card expiry date"
+    },
+    "profile_photo_url": {
+      "type": "string",
+      "description": "Profile photo URL"
+    },
+    "tractor_types": {
+      "type": "string",
+      "description": "Tractor types (JSON array string)"
+    },
+    "trailer_types": {
+      "type": "string",
+      "description": "Trailer types (JSON array string)"
+    },
+    "freight_types": {
+      "type": "string",
+      "description": "Freight types (JSON array string)"
+    },
+    "passport_documents": {
+      "type": "string",
+      "description": "Passport documents (JSON array string)"
+    },
+    "experience": {
+      "type": "string",
+      "description": "Work experience entries (JSON array string of {title, company, location, start_date, end_date, current, description})"
+    },
+    "references": {
+      "type": "string",
+      "description": "Professional references (JSON array string of {name, company, email, phone, relationship, relationship_other})"
+    }
+  },
+  "required": [
+    "role"
+  ],
+  "name": "User",
+  "type": "object"
+}

@@ -1,0 +1,167 @@
+{
+  "name": "Member",
+  "type": "object",
+  "properties": {
+    "lhs_member_id": {
+      "type": "string",
+      "description": "Permanent LHS Member ID e.g. LHS-00001"
+    },
+    "ghl_contact_id": {
+      "type": "string",
+      "description": "GoHighLevel contact ID \u2014 used for write-back"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "description": "Member's email address"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "membership_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "active",
+        "suspended",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "portal_role": {
+      "type": "string",
+      "enum": [
+        "member",
+        "admin"
+      ],
+      "default": "member",
+      "description": "Portal role for this member. 'admin' is set by the ghlAdminWebhook when the 'portal admin approved' tag is applied in GHL."
+    },
+    "agreement_signed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "portal_invited_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "portal_invite_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "invited",
+        "failed"
+      ],
+      "default": "pending",
+      "description": "Status of the Base44 portal user invitation"
+    },
+    "portal_user_id": {
+      "type": "string"
+    },
+    "first_login_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the member's first successful portal login (set once, idempotent)"
+    },
+    "ghl_writeback_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ghl_writeback_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "success",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "affiliate_id": {
+      "type": "string",
+      "description": "GHL Affiliate Manager internal _id"
+    },
+    "affiliate_public_code": {
+      "type": "string",
+      "description": "Public amId (e.g., driver1234) from GHL affiliate-campaign endpoint"
+    },
+    "affiliate_public_codes": {
+      "type": "string",
+      "description": "JSON array of public amIds from GHL affiliate-campaign endpoint"
+    },
+    "affiliate_referral_link": {
+      "type": "string",
+      "description": "Full referral link from GHL affiliate-campaign endpoint \u2014 source of truth, never manually constructed"
+    },
+    "affiliate_campaign_data": {
+      "type": "string",
+      "description": "Raw JSON response from GHL affiliate-campaign endpoint (amId, amIds, link, samId, subAfLink, etc.)"
+    },
+    "affiliate_campaign_id": {
+      "type": "string"
+    },
+    "affiliate_clicks": {
+      "type": "number"
+    },
+    "affiliate_leads": {
+      "type": "number",
+      "description": "Tier 1: direct referrals"
+    },
+    "affiliate_tier2_leads": {
+      "type": "number",
+      "description": "Tier 2: leads from direct referrals' networks"
+    },
+    "affiliate_tier3_leads": {
+      "type": "number",
+      "description": "Tier 3: leads from tier-2 networks"
+    },
+    "affiliate_credits": {
+      "type": "number",
+      "description": "Total credits = tier1 + tier2 + tier3"
+    },
+    "affiliate_parent_id": {
+      "type": "string"
+    },
+    "affiliate_children_ids": {
+      "type": "string",
+      "description": "JSON array of child affiliate IDs"
+    },
+    "affiliate_sub_count": {
+      "type": "number",
+      "description": "Number of direct sub-affiliates from GHL parentId query"
+    },
+    "affiliate_af_campaign": {
+      "type": "string",
+      "description": "JSON array of afCampaign data from GHL affiliate record"
+    },
+    "network_leads": {
+      "type": "number",
+      "description": "Total network leads = tier1 + tier2 + tier3"
+    },
+    "affiliate_lookup_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "found",
+        "not_found",
+        "retry"
+      ],
+      "default": "pending"
+    },
+    "affiliate_enriched_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "raw_ghl_payload": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "email",
+    "ghl_contact_id"
+  ]
+}

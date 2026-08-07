@@ -1,0 +1,41 @@
+{
+  "name": "CommunicationLog",
+  "type": "object",
+  "properties": {
+    "driver_id": {
+      "type": "string",
+      "description": "ID of the driver this communication is for"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "email_sent",
+        "response_received",
+        "status_change",
+        "item_received",
+        "note"
+      ],
+      "description": "Type of communication event"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Email subject or event title"
+    },
+    "body": {
+      "type": "string",
+      "description": "Email body or event details"
+    },
+    "template_used": {
+      "type": "string",
+      "description": "Which template was used if any"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "Additional metadata as JSON string"
+    }
+  },
+  "required": [
+    "driver_id",
+    "type"
+  ]
+}

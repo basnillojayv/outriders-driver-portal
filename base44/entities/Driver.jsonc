@@ -1,0 +1,212 @@
+{
+  "name": "Driver",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "type": "string",
+      "description": "Driver's first name"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Driver's last name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Driver's email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Driver's phone number"
+    },
+    "business_name": {
+      "type": "string",
+      "description": "Carrier or business name"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Tags from CSV import (driver type, etc.)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "imported",
+        "contacted",
+        "activation_started",
+        "activation_pending",
+        "activation_completed",
+        "avatar_pending",
+        "portal_ready",
+        "active_user"
+      ],
+      "default": "imported",
+      "description": "Current activation status"
+    },
+    "username": {
+      "type": "string",
+      "description": "Chosen public username"
+    },
+    "profile_photo_url": {
+      "type": "string",
+      "description": "Uploaded profile photo URL"
+    },
+    "cdl_number": {
+      "type": "string",
+      "description": "CDL number"
+    },
+    "cdl_state": {
+      "type": "string",
+      "description": "CDL issuing state"
+    },
+    "code_of_conduct_accepted": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether Code of Conduct was accepted"
+    },
+    "code_of_conduct_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When CoC was accepted"
+    },
+    "avatar_url": {
+      "type": "string",
+      "description": "Generated Outriders avatar URL"
+    },
+    "last_contacted": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last outreach date"
+    },
+    "last_activity": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last activity date"
+    },
+    "portal_user_id": {
+      "type": "string",
+      "description": "ID of created portal user (only after activation)"
+    },
+    "csv_import_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this record was imported from CSV"
+    },
+    "city": {
+      "type": "string",
+      "description": "Driver's city"
+    },
+    "address": {
+      "type": "string",
+      "description": "Optional address"
+    },
+    "state": {
+      "type": "string",
+      "description": "Driver's state (2-letter)"
+    },
+    "bio": {
+      "type": "string",
+      "description": "One-line bio (max 120 chars)"
+    },
+    "years_experience": {
+      "type": "string",
+      "description": "Years of driving experience range"
+    },
+    "equipment_types": {
+      "type": "string",
+      "description": "Equipment types (JSON array string)"
+    },
+    "route_experience": {
+      "type": "string",
+      "description": "Route experience (JSON array string)"
+    },
+    "certifications": {
+      "type": "string",
+      "description": "Certifications (JSON array string)"
+    },
+    "work_history": {
+      "type": "string",
+      "description": "Freeform work history summary"
+    },
+    "open_to_opportunities": {
+      "type": "boolean",
+      "default": false,
+      "description": "Open to new opportunities"
+    },
+    "preferred_work_styles": {
+      "type": "string",
+      "description": "Preferred work styles (JSON array string)"
+    },
+    "career_statement": {
+      "type": "string",
+      "description": "Career positioning statement"
+    },
+    "skill_dry_van": {
+      "type": "number",
+      "description": "Dry van skill rating 1-5"
+    },
+    "skill_reefer": {
+      "type": "number",
+      "description": "Reefer skill rating 1-5"
+    },
+    "skill_flatbed": {
+      "type": "number",
+      "description": "Flatbed skill rating 1-5"
+    },
+    "skill_tanker": {
+      "type": "number",
+      "description": "Tanker skill rating 1-5"
+    },
+    "skill_night_driving": {
+      "type": "number",
+      "description": "Night driving skill rating 1-5"
+    },
+    "skill_weather": {
+      "type": "number",
+      "description": "Weather conditions skill rating 1-5"
+    },
+    "skill_urban_docks": {
+      "type": "number",
+      "description": "Urban/tight docks skill rating 1-5"
+    },
+    "skill_long_haul": {
+      "type": "number",
+      "description": "Long haul endurance skill rating 1-5"
+    },
+    "skill_drop_hook": {
+      "type": "number",
+      "description": "Drop & hook skill rating 1-5"
+    },
+    "skill_yard_moves": {
+      "type": "number",
+      "description": "Yard moves skill rating 1-5"
+    },
+    "skill_terminal_ops": {
+      "type": "number",
+      "description": "Terminal operations skill rating 1-5"
+    },
+    "skill_linehaul": {
+      "type": "number",
+      "description": "Linehaul familiarity skill rating 1-5"
+    },
+    "skill_time_mgmt": {
+      "type": "number",
+      "description": "Time management skill rating 1-5"
+    },
+    "skill_communication": {
+      "type": "number",
+      "description": "Communication skill rating 1-5"
+    },
+    "skill_safety": {
+      "type": "number",
+      "description": "Safety mindset skill rating 1-5"
+    },
+    "skill_facility": {
+      "type": "number",
+      "description": "Facility respect skill rating 1-5"
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name",
+    "email"
+  ]
+}

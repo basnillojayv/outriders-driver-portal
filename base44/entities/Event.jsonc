@@ -1,0 +1,108 @@
+{
+  "name": "Event",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Event name"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Event date"
+    },
+    "time": {
+      "type": "string",
+      "description": "Start time HH:MM"
+    },
+    "timezone": {
+      "type": "string",
+      "default": "America/Chicago",
+      "description": "Timezone identifier"
+    },
+    "end_time": {
+      "type": "string",
+      "description": "End time HH:MM (optional)"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "in_person",
+        "virtual",
+        "fb_live",
+        "recurring",
+        "milestone"
+      ],
+      "default": "in_person",
+      "description": "Event type"
+    },
+    "description": {
+      "type": "string",
+      "description": "Full event description"
+    },
+    "short_description": {
+      "type": "string",
+      "description": "1-2 line summary for list view"
+    },
+    "location": {
+      "type": "string",
+      "description": "Physical location name"
+    },
+    "address": {
+      "type": "string",
+      "description": "Street address"
+    },
+    "virtual_link": {
+      "type": "string",
+      "description": "Zoom/Meet/FB Live URL"
+    },
+    "virtual_instructions": {
+      "type": "string",
+      "description": "How to join virtually"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional info"
+    },
+    "is_recurring": {
+      "type": "boolean",
+      "default": false
+    },
+    "recurrence_pattern": {
+      "type": "string",
+      "enum": [
+        "weekly",
+        "biweekly",
+        "monthly"
+      ],
+      "description": "Recurrence frequency"
+    },
+    "recurrence_end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When the series ends"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published"
+      ],
+      "default": "published",
+      "description": "Visibility to members"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Optional event image URL"
+    }
+  },
+  "required": [
+    "title",
+    "date",
+    "time",
+    "timezone",
+    "event_type",
+    "description",
+    "status"
+  ]
+}
