@@ -6,8 +6,14 @@
  * fills. One seat is one member on the inner ring, ten on the middle, a hundred
  * on the outer — the 10 → 100 → 1,000 shape of the programme, to scale.
  *
- * Display-only. Every value it encodes is restated in the legend beneath, so
- * nothing depends on reading colour or on seeing the graphic at all.
+ * The dial idles: each orbit turns at its own slow rate while the bezel and
+ * compass stay fixed, so the piece reads as a mechanism running rather than a
+ * diagram sitting still. Pointing at a Circle — a seat, or its legend row —
+ * brings that generation forward, pushes the others back, and stops the
+ * rotation so nothing has to be chased to be read.
+ *
+ * Every value it encodes is restated in the legend beneath, so nothing depends
+ * on reading colour, on catching the motion, or on seeing the graphic at all.
  */
 import React, { useEffect, useRef, useState } from "react";
 import { T } from "../v3/v3tokens";
@@ -23,10 +29,14 @@ const SEATS = 10;
 
 const BADGE = 52;          // identical for all three Circles
 
+// `period` is one full revolution. Minutes rather than seconds, and coprime-ish
+// so the three orbits never settle into a repeating pattern; alternating `rev`
+// makes neighbouring rings counter-rotate, which is what reads as gearing
+// rather than as the whole picture sliding.
 const RINGS = [
-  { key: "inner",    r: 66,  node: 14, seatOffset: 0,  total: 10,    badge: innerBadge,    atCentre: true },
-  { key: "convoy",   r: 135, node: 16, seatOffset: 18, total: 100,   badge: convoyBadge },
-  { key: "founders", r: 191, node: 17, seatOffset: 18, total: 1000,  badge: foundersBadge },
+  { key: "inner",    r: 66,  node: 14, seatOffset: 0,  total: 10,    badge: innerBadge,    atCentre: true, period: "150s", rev: false },
+  { key: "convoy",   r: 135, node: 16, seatOffset: 18, total: 100,   badge: convoyBadge,                   period: "205s", rev: true  },
+  { key: "founders", r: 191, node: 17, seatOffset: 18, total: 1000,  badge: foundersBadge,                 period: "260s", rev: false },
 ];
 
 const polar = (r, deg) => {
@@ -63,10 +73,29 @@ const LEGEND = {
   founders: ["Founders Circle", "One seat = one hundred members"],
 };
 
+// A ring and the coins riding it share one period and one play state; the
+// coins take the opposite direction so they stay level as the ring turns.
+const orbitClass = (ring) => `nm-orbit${ring.rev ? " nm-orbit--rev" : ""}`;
+const orbitStyle = (ring, paused) => ({
+  "--nm-period": ring.period,
+  animationPlayState: paused ? "paused" : "running",
+});
+
 export default function NetworkMap({ directCount = 0, tier2Count = 0, tier3Count = 0 }) {
   const counts = { inner: directCount, convoy: tier2Count, founders: tier3Count };
   const progress = useSettle(1);
   const total = directCount + tier2Count + tier3Count;
+
+  // Which Circle the reader is pointing at, from a seat or from its legend row.
+  // Touch has no hover, so the legend rows are also toggles.
+  const [active, setActive] = useState(null);
+  const clear = () => setActive(null);
+
+  // Stopping the dial while a Circle is singled out matters more than the
+  // motion does: a seat you are trying to look at should not be drifting away
+  // from the pointer that selected it.
+  const paused = active !== null;
+  const dimFor = (key) => (active && active !== key ? 0.34 : 1);
 
   return (
     <div>
@@ -101,6 +130,7 @@ export default function NetworkMap({ directCount = 0, tier2Count = 0, tier3Count
             `Referral network. Inner Circle ${directCount} of 10 direct members. ` +
             `Convoy Circle ${tier2Count} of 100. Founders Circle ${tier3Count} of 1,000.`
           }
+          onMouseLeave={clear}
         >
           <defs>
             {/* Brushed steel — softer stop ramp than mirror chrome, which the
@@ -112,12 +142,6 @@ export default function NetworkMap({ directCount = 0, tier2Count = 0, tier3Count
               <stop offset="74%" stopColor="#666D74" />
               <stop offset="100%" stopColor="#9AA1A8" />
             </linearGradient>
-            <linearGradient id="nm-bezel" x1="0.15" y1="0" x2="0.85" y2="1">
-              <stop offset="0%" stopColor="#B9C0C7" />
-              <stop offset="34%" stopColor="#6E757C" />
-              <stop offset="62%" stopColor="#A2A9B0" />
-              <stop offset="100%" stopColor="#454B51" />
-            </linearGradient>
 
             {/* Recessed dial face — solid fill; carbon texture is reserved for
                 the hero and page background. */}
@@ -127,26 +151,10 @@ export default function NetworkMap({ directCount = 0, tier2Count = 0, tier3Count
               <stop offset="100%" stopColor="#0A0B0C" />
             </radialGradient>
 
-            {/* Matte shading on a seat face: light falls off downward. */}
-            <radialGradient id="nm-face-shade" cx="38%" cy="26%" r="86%">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.20)" />
-              <stop offset="46%" stopColor="rgba(255,255,255,0.02)" />
-              <stop offset="100%" stopColor="rgba(0,0,0,0.52)" />
-            </radialGradient>
-            <linearGradient id="nm-lip" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.34)" />
-              <stop offset="52%" stopColor="rgba(255,255,255,0)" />
-              <stop offset="100%" stopColor="rgba(0,0,0,0.5)" />
-            </linearGradient>
-            <linearGradient id="nm-mark" x1="0" y1="0" x2="0.4" y2="1">
-              <stop offset="0%" stopColor="#FFFFFF" />
-              <stop offset="62%" stopColor="#DFE4E8" />
-              <stop offset="100%" stopColor="#A6ACB2" />
-            </linearGradient>
-
             <filter id="nm-drop" x="-30%" y="-30%" width="160%" height="160%">
               <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#000" floodOpacity="0.7" />
             </filter>
+
           </defs>
 
           {/* ── dial body ── */}
@@ -173,24 +181,26 @@ export default function NetworkMap({ directCount = 0, tier2Count = 0, tier3Count
 
           {/* ── orbits ── */}
           {RINGS.map((ring) => {
-            const value = counts[ring.key];
-            const active = value > 0;
+            const filled = counts[ring.key] > 0;
+            const lifted = active === ring.key;
             return (
-              <g key={`orbit-${ring.key}`}>
+              <g key={`orbit-${ring.key}`} className="nm-ring" opacity={dimFor(ring.key)}>
                 <circle
                   cx={C} cy={C} r={ring.r}
                   fill="none"
-                  stroke={active ? TIER_PALETTE[ring.key].base : "rgba(255,255,255,0.10)"}
-                  strokeWidth="2"
-                  opacity={active ? 0.75 : 1}
+                  stroke={filled ? TIER_PALETTE[ring.key].base : "rgba(255,255,255,0.10)"}
+                  strokeWidth={lifted ? 3 : 2}
+                  opacity={filled ? (lifted ? 1 : 0.75) : 1}
                 />
                 <circle
+                  className="nm-guide"
                   cx={C} cy={C} r={ring.r - 24}
                   fill="none"
-                  stroke={active ? TIER_PALETTE[ring.key].base : "rgba(255,255,255,0.07)"}
+                  stroke={filled ? TIER_PALETTE[ring.key].base : "rgba(255,255,255,0.07)"}
                   strokeWidth="1.2"
                   strokeDasharray="6 9"
-                  opacity={active ? 0.45 : 1}
+                  opacity={filled ? (lifted ? 0.7 : 0.45) : 1}
+                  style={{ animationPlayState: paused ? "paused" : "running" }}
                 />
               </g>
             );
@@ -204,48 +214,76 @@ export default function NetworkMap({ directCount = 0, tier2Count = 0, tier3Count
               Math.floor((value / ring.total) * SEATS + 1e-9)
             );
             return (
-              <g key={`seats-${ring.key}`}>
-                {Array.from({ length: SEATS }, (_, i) => {
-                  const deg = ring.seatOffset + (i / SEATS) * 360;
-                  const p = polar(ring.r, deg);
-                  const lit = i < litSeats;
-                  const appear = Math.max(0, Math.min(1, progress * 1.45 - i * 0.045));
-                  return (
-                    <g key={i} opacity={0.35 + 0.65 * appear}>
-                      <NetworkNode
-                        x={p.x}
-                        y={p.y}
-                        r={ring.node * (0.9 + 0.1 * appear)}
-                        kind={ring.key}
-                        lit={lit}
-                        tone={lit ? TIER_PALETTE[ring.key] : TIER_OFF}
-                      />
-                    </g>
-                  );
-                })}
+              <g key={`seats-${ring.key}`} className="nm-ring" opacity={dimFor(ring.key)}>
+                <g className={orbitClass(ring)} style={orbitStyle(ring, paused)}>
+                  {Array.from({ length: SEATS }, (_, i) => {
+                    const deg = ring.seatOffset + (i / SEATS) * 360;
+                    const p = polar(ring.r, deg);
+                    const lit = i < litSeats;
+                    const appear = Math.max(0, Math.min(1, progress * 1.45 - i * 0.045));
+                    return (
+                      <g key={i} opacity={0.35 + 0.65 * appear}>
+                        <NetworkNode
+                          x={p.x}
+                          y={p.y}
+                          r={ring.node * (0.9 + 0.1 * appear)}
+                          kind={ring.key}
+                          lit={lit}
+                          period={ring.period}
+                          reverse={ring.rev}
+                          paused={paused}
+                          active={active === ring.key}
+                          onActivate={setActive}
+                        />
+                      </g>
+                    );
+                  })}
+                </g>
               </g>
             );
           })}
 
-          {/* ── Circle badges — identical size; Inner at the hub, the other
-                 two at the head of their own orbit ── */}
+          {/* ── Circle badges — identical size; Inner at the hub, the other two
+                 fixed at the head of their own orbit. All three are anchors,
+                 not passengers: they hold station while the ring turns behind
+                 them, so each Circle keeps one place on the dial to look for.
+                 Drawn last, so a seat passing under a badge goes behind it. ── */}
           {RINGS.map((ring) => {
             const p = ring.atCentre ? { x: C, y: C } : polar(ring.r, 0);
             const h = BADGE / 2;
             return (
-              <g key={`badge-${ring.key}`} filter="url(#nm-drop)">
-                <circle cx={p.x} cy={p.y} r={h + 4} fill="#0A0B0C" />
-                <circle cx={p.x} cy={p.y} r={h + 2.5} fill="none" stroke="url(#nm-steel)" strokeWidth="2.5" />
-                <image href={ring.badge} x={p.x - h} y={p.y - h} width={BADGE} height={BADGE} />
+              <g
+                key={`badge-${ring.key}`}
+                className="nm-ring"
+                opacity={dimFor(ring.key)}
+                onMouseEnter={() => setActive(ring.key)}
+              >
+                <g filter="url(#nm-drop)">
+                  <circle cx={p.x} cy={p.y} r={h + 4} fill="#0A0B0C" />
+                  <circle cx={p.x} cy={p.y} r={h + 2.5} fill="none" stroke="url(#nm-steel)" strokeWidth="2.5" />
+                  <image href={ring.badge} x={p.x - h} y={p.y - h} width={BADGE} height={BADGE} />
+                </g>
               </g>
             );
           })}
         </svg>
 
-        {/* Legend — every value above, restated in text */}
+        {/* Legend — every value above, restated in text, and the way in for a
+            reader who has no pointer: each row highlights its ring on hover,
+            on focus, and on tap. */}
         <ul style={{ marginTop: 16, display: "grid", gap: 12 }}>
           {RINGS.map((ring) => (
-            <li key={ring.key} style={{ display: "flex", alignItems: "center", gap: 11 }}>
+            <li key={ring.key}>
+            <button
+              type="button"
+              className={`nm-legend${active === ring.key ? " nm-legend--active" : ""}`}
+              aria-pressed={active === ring.key}
+              onMouseEnter={() => setActive(ring.key)}
+              onMouseLeave={clear}
+              onFocus={() => setActive(ring.key)}
+              onBlur={clear}
+              onClick={() => setActive(active === ring.key ? null : ring.key)}
+            >
               <span
                 aria-hidden
                 style={{
@@ -292,6 +330,7 @@ export default function NetworkMap({ directCount = 0, tier2Count = 0, tier3Count
                 {" / "}
                 {ring.total.toLocaleString()}
               </span>
+            </button>
             </li>
           ))}
         </ul>

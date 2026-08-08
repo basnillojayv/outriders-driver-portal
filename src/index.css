@@ -470,3 +470,82 @@
   }
   .tier-card__badge { width: clamp(76px, 11vw, 96px); }
 }
+
+/* ── Founders network map ──────────────────────────────────────────────────
+   The dial's frame is fixed and the mechanism inside it turns: each orbit
+   rotates at its own rate, and every coin counter-rotates at exactly the same
+   rate so it stays upright rather than tumbling. One revolution is minutes,
+   not seconds — this should register as a machine idling, not as a carousel.
+
+   Nothing here carries information. The legend beneath the map states every
+   count in text, so a reader who never sees this motion loses nothing, and
+   the whole block is switched off under prefers-reduced-motion below. */
+.nm-orbit {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: nm-spin var(--nm-period) linear infinite;
+}
+.nm-orbit--rev { animation-name: nm-spin-rev; }
+
+/* Cancels the parent orbit. Same period, opposite direction, both started on
+   mount, so the two stay locked however long the page is left open. */
+.nm-upright {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: nm-spin-rev var(--nm-period) linear infinite;
+}
+.nm-upright--rev { animation-name: nm-spin; }
+
+/* The dashed guide inside each orbit drifts, so a ring reads as live even
+   when the eye can't yet detect the rotation itself. */
+.nm-guide { animation: nm-drift 9s linear infinite; }
+
+.nm-ring { transition: opacity 200ms ease; }
+
+.nm-seat {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nm-seat:hover { transform: scale(1.16); }
+.nm-seat--active { transform: scale(1.09); }
+
+/* Legend row doubles as the control that highlights its ring. */
+.nm-legend {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  text-align: left;
+  padding: 7px 9px;
+  margin: -7px -9px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+.nm-legend:hover { background: rgba(255,255,255,0.035); }
+.nm-legend--active {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.11);
+}
+.nm-legend:focus-visible {
+  outline: 2px solid var(--fuel-500);
+  outline-offset: 2px;
+}
+
+@keyframes nm-spin     { to { transform: rotate(360deg); } }
+@keyframes nm-spin-rev { to { transform: rotate(-360deg); } }
+@keyframes nm-drift    { to { stroke-dashoffset: -60; } }
+
+/* Motion is decoration here, so it goes entirely — the map keeps its layout,
+   its hover highlighting and every number. */
+@media (prefers-reduced-motion: reduce) {
+  .nm-orbit,
+  .nm-upright,
+  .nm-guide { animation: none !important; }
+  .nm-seat,
+  .nm-ring,
+  .nm-legend { transition-duration: 1ms !important; }
+}
