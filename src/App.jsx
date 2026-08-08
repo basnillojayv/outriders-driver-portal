@@ -60,7 +60,32 @@ import ActivateProfile from '@/pages/ActivateProfile';
 import JoinOneHome from '@/pages/JoinOneHome';
 import PublicPassport from '@/pages/PublicPassport';
 
+/**
+ * Single-page mode — `VITE_REWARDS_ONLY=true` at build time (see vercel.json).
+ * Every path renders the Founders/Rewards page and nothing is auth-gated, so
+ * the standalone deploy can't bounce visitors to a login it has no backend for.
+ * Pair it with VITE_DEMO_MODE=true, which feeds the page its stub data.
+ */
+const REWARDS_ONLY = import.meta.env.VITE_REWARDS_ONLY === 'true';
+
+function RewardsOnlyApp() {
+  return (
+    <AuthProvider>
+      <QueryClientProvider client={queryClientInstance}>
+        <Router>
+          <Routes>
+            <Route path="*" element={<Rewards />} />
+          </Routes>
+        </Router>
+        <Toaster />
+      </QueryClientProvider>
+    </AuthProvider>
+  )
+}
+
 function App() {
+  if (REWARDS_ONLY) return <RewardsOnlyApp />;
+
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>

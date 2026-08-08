@@ -1,15 +1,25 @@
 /**
+ * Demo mode — `VITE_DEMO_MODE=true` at build time.
+ *
+ * Unlike the dev bypass below this DOES apply to production builds. It exists
+ * for the standalone Vercel deploy (see vercel.json): that build has no Base44
+ * backend behind `/api`, so auth and every data call are served from the stubs
+ * in this file instead of redirecting to a login that can never succeed.
+ */
+export const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true';
+
+/**
  * Local-development auth bypass.
  *
- * Enabled only when BOTH hold:
+ * Enabled when demo mode is on, or when BOTH hold:
  *   - the app is running under `vite dev` (`import.meta.env.DEV`)
  *   - `VITE_DEV_BYPASS_AUTH=true` is set (see .env.local.example)
  *
  * Vite statically replaces `import.meta.env.DEV` with `false` in a production
- * build, so this collapses to dead code and cannot be switched on in prod.
+ * build, so the dev half collapses to dead code outside `vite dev`.
  */
 export const DEV_BYPASS_AUTH =
-  import.meta.env.DEV && import.meta.env.VITE_DEV_BYPASS_AUTH === 'true';
+  DEMO_MODE || (import.meta.env.DEV && import.meta.env.VITE_DEV_BYPASS_AUTH === 'true');
 
 /**
  * Stand-in for the object `base44.auth.me()` normally resolves to. Fields match
